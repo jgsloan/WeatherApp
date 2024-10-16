@@ -7,9 +7,9 @@ function getWeather() {
     return;
   }
   const currentWeatherUrl =
-    "https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}";
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${apiKey}`;
   const forecastUrl =
-    "https://api.openweather.org/data/2.5/forecast?q=${city}&appid=${apiKey}";
+    `https://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=${apiKey}`;
 
   fetch(currentWeatherUrl)
     .then((response) => response.json())
@@ -22,7 +22,7 @@ function getWeather() {
     });
 
   fetch(forecastUrl)
-    .then(response.json())
+    .then(response => response.json())
     .then((data) => {
       displayHourlyForecast(data.list);
     })
@@ -81,6 +81,7 @@ function displayHourlyForecast(hourlyData) {
   next24Hours.forEach(item => {
         
       const dateTime = new Date(item.dt * 1000);
+      console.log(dateTime);
       const hour = dateTime.getHours();
       const temperature = Math.round(item.main.temp - 273.15);
       const iconCode = item.weather[0].icon;
